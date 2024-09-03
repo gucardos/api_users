@@ -14,6 +14,13 @@ expect(response.statusCode).toBe(200);
 
 });
 
+beforeAll( () => {
+    server.on('error', async (e) => {
+        if (e.code === 'EADDRINUSE') {
+          await server.close()
+        }
+      });
+})
 
 afterAll(() => {
     server.close();
